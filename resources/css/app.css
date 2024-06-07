@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .d_container{
+        @apply container mx-auto;
+    }
+
+    .d_transition{
+        @apply transition-all duration-300 ease-linear;
+    }
+}
