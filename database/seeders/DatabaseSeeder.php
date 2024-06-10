@@ -4,10 +4,13 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductDatas;
 use App\Models\ProductImage;
+use App\Models\Setting;
 use Illuminate\Database\Seeder;
+use OpenSpout\Reader\ODS\Helper\SettingsHelper;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +22,17 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
-            CategoriesSeeder::class
+            CategoriesSeeder::class,
+            GenderSeeder::class,
+            BrandSeeder::class,
+            PermissionSeeder::class,
+            ProductSeeder::class,
+            RoleSeeder::class,
+            SettingSedder::class,
+            SliderSeeder::class,
+            SocialSeeder::class,
+            TestimonialSeeder::class,
+            UserSeeder::class
         ]);
 
         \App\Models\User::factory()->create([

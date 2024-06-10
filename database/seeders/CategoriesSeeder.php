@@ -16,44 +16,13 @@ class CategoriesSeeder extends Seeder
     {
         $datas = [
             [
-                'name' => 'Unisex',
-                'slug' => 'unisex',
-                'thumbnail' => null,
-                'intro' => 'Testing intro',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => null
-            ],
-            [
-                'name' => 'Men',
-                'slug' => 'men',
-                'thumbnail' => null,
-                'intro' => 'Testing intro',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => null
-            ],
-            [
-                'name' => 'Women',
-                'slug' => 'cloths',
-                'thumbnail' => null,
-                'intro' => 'Testing intro',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => null
-            ],
-            [
-                'name' => 'Kid',
-                'slug' => 'kid',
-                'thumbnail' => null,
-                'intro' => 'Testing intro',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => null
-            ],
-            [
                 'name' => 'Cloths',
                 'slug' => 'cloths',
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => 3
+                'gender_id' => null,
+                'parent_id' => null
             ],
             [
                 'name' => 'Shoe',
@@ -61,7 +30,26 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => 2
+                'gender_id' => null,
+                'parent_id' => null
+            ],
+            [
+                'name' => 'Accessories',
+                'slug' => 'accessories',
+                'thumbnail' => null,
+                'intro' => 'Testing intro',
+                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
+                'gender_id' => null,
+                'parent_id' => null
+            ],
+            [
+                'name' => 'Cosmetic',
+                'slug' => 'cosmetic',
+                'thumbnail' => null,
+                'intro' => 'Testing intro',
+                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
+                'gender_id' => null,
+                'parent_id' => null
             ],
             [
                 'name' => 'Shirt',
@@ -69,6 +57,7 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
+                'gender_id' => 1,
                 'parent_id' => 1
             ],
             [
@@ -77,7 +66,8 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => 2
+                'gender_id' => 1,
+                'parent_id' => 3
             ],
             [
                 'name' => 'Pant',
@@ -85,16 +75,18 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => 3
+                'gender_id' => 1,
+                'parent_id' => 1
             ],
             [
-                'name' => 'Nike',
-                'slug' => 'nike',
+                'name' => "Women's Bra",
+                'slug' => "women's bra",
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'parent_id' => 6
-            ]
+                'gender_id' => 3,
+                'parent_id' => 1
+            ],
         ];
 
         Category::insert($datas);

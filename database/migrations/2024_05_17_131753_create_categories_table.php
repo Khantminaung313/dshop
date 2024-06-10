@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('intro')->nullable();
             $table->longText('description')->nullable();
+            $table->foreignId('gender_id')->nullable();
             $table->foreignId('parent_id')->nullable(); 
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
+use App\Models\Gender;
 use Faker\Provider\ar_EG\Text;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -48,14 +49,25 @@ class CategoryResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
+                Select::make('gender_id')
+                    ->nullable()
+                    ->label('Gender')
+                    ->searchable()
+                    ->preload()
+                    ->relationship(name: 'gender', titleAttribute: 'name')
+                    ->native(false),
                 Select::make('parent_id')
                     ->nullable()
                     ->label('Parent Category')
                     ->searchable('name')
                     ->preload()
-                    ->relationship(name: 'parent', titleAttribute: 'name')
+                    ->relationship(
+                        name: 'parent',
+                        modifyQueryUsing: fn (Builder $query) => $query->where('parent_id', null),
+                        titleAttribute: 'name',
+                        ignoreRecord: true
+                    )
                     ->native(false),
-
                 TextInput::make('intro')
                     ->nullable()
                     ->maxLength(255),
@@ -85,9 +97,13 @@ class CategoryResource extends Resource
                     ->visibleOn('view'),
                 TextColumn::make('description')
                     ->visibleOn('view'),
-                TextColumn::make('created_at')
-                    ->label('Created at')
-                    ->date('m/d/y - h:m:s')
+                TextColumn::make('gender.name')
+                    ->label('Gender')
+                    ->searchable(),
+                TextColumn::make('parent.name')
+                    ->label('Parent Category')
+                    
+                    
 
             ])
             ->filters([

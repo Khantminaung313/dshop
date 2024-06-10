@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Filament\Forms;
@@ -59,26 +60,18 @@ class ProductResource extends Resource
                         TextInput::make('slug')
                             ->required()
                             ->unique(ignoreRecord: true),
-                        Select::make('brand_id')
-                            ->required()
-                            ->relationship(name: 'brand', titleAttribute: 'name')
-                            ->preload()
-                            ->native(false)
-                            ->createOptionForm([
-                                TextInput::make('name')
-                                    ->required(),
-                                TextInput::make('slug')
-                                    ->required()
-                                    ->unique()
-                            ]),
-                        Select::make('gender')
-                            ->options(Category::query()->where('parent_id', null)->pluck('name', 'id'))
-                            ->live(),
                         Select::make('category_type')
-                            ->options(fn (Get $get): Collection => Category::query()
-                                ->where('parent_id', $get('gender'))
-                                ->whereNot('parent_id', null)
-                                ->pluck('name', 'id')),
+                            ->required()
+                            ->label('Type')
+                            ->relationship(name: 'category', titleAttribute: 'name')
+                            ->options(
+                                fn (Get $get): Collection => Category::query()
+                                    ->where('parent_id', null)
+                                    ->pluck('name', 'id')
+                            )
+                            ->searchable()
+                            ->preload()
+                            ->native(false),
                         Select::make('category_id')
                             ->required()
                             ->relationship(name: 'category', titleAttribute: 'name')
@@ -91,30 +84,64 @@ class ProductResource extends Resource
                             ->native(false)
                             ->createOptionForm([
                                 TextInput::make('name')
-                                    ->required(),
+                                    ->required()
+                                    ->live()
+                                    ->debounce(500)
+                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                        if (($get('slug') ?? '') !== Str::slug($old)) {
+                                            return;
+                                        }
+
+                                        $set('slug', Str::slug($state));
+                                    }),
                                 TextInput::make('slug')
                                     ->required()
-                                    ->unique(),
+                                    ->unique(ignoreRecord: true),
                                 Select::make('parent_id')
                                     ->relationship(name: 'parent', titleAttribute: 'name')
+                                    ->options(
+                                        fn (Get $get): Collection => Category::query()
+                                            ->where('parent_id', null)
+                                            ->pluck('name', 'id')
+                                    )
                                     ->preload()
+                                    ->native(),
+                                Select::make('gender_id')
+                                    ->relationship(name: 'gender', titleAttribute: 'name')
+                                    ->preload()
+                                    ->native(false)
                             ]),
+                        Select::make('brand_id')
+                            ->required()
+                            ->relationship(name: 'brand', titleAttribute: 'name')
+                            ->preload()
+                            ->native(false)
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->live()
+                                    ->debounce(500)
+                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                        if (($get('slug') ?? '') !== Str::slug($old)) {
+                                            return;
+                                        }
+                                        $set('slug', Str::slug($state));
+                                    }),
+                                TextInput::make('slug')
+                                    ->required()
+                                    ->unique()
+                            ]),
+
                         TextInput::make('rating')
                             ->required()
                             ->numeric(),
-                        Select::make('gender')
-                            ->required()
-                            ->options([
-                                'male' => 'Male',
-                                'female' => 'Female',
-                                'unisex' => 'Unisex',
-                                'kid'   => "Kid"
-                            ]),
                         Textarea::make('intro')
                             ->required(),
                         Textarea::make('description')
                             ->required()
                     ]),
+
+                // Product Detail
                 Section::make('Product Details')
                     ->description('Fill all product data')
                     ->collapsible()
@@ -156,6 +183,8 @@ class ProductResource extends Resource
                                     ->default('draft')
                                     ->inline()
                                     ->inlineLabel(false),
+
+                                // Product Images
                                 Section::make('Product Images')
                                     ->description('Add images for product')
                                     ->collapsible()

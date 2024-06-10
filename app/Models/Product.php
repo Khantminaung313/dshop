@@ -20,6 +20,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
     public function productDatas()
     {
         return $this->hasMany(ProductDatas::class);
