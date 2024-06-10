@@ -21,7 +21,7 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'gender_id' => null,
+                'gender_id' => 1,
                 'parent_id' => null
             ],
             [
@@ -30,7 +30,7 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'gender_id' => null,
+                'gender_id' => 1,
                 'parent_id' => null
             ],
             [
@@ -39,7 +39,7 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'gender_id' => null,
+                'gender_id' => 1,
                 'parent_id' => null
             ],
             [
@@ -48,7 +48,7 @@ class CategoriesSeeder extends Seeder
                 'thumbnail' => null,
                 'intro' => 'Testing intro',
                 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor alias explicabo reiciendis ad fugit quaerat voluptatem magnam hic sit saepe numquam reprehenderit sequi excepturi impedit quia, aut optio voluptatum minima distinctio vel repellendus. Quibusdam perspiciatis similique repellat voluptatibus asperiores ratione.',
-                'gender_id' => null,
+                'gender_id' => 1,
                 'parent_id' => null
             ],
             [

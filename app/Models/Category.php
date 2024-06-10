@@ -11,6 +11,8 @@ class Category extends Model
 
     protected $fillable = ['name', 'parent_id', 'slug', 'thumbnail', 'intro', 'description'];
 
+    protected $with = ['gender'];
+
     public function products()
     {
         return $this->hasMany(Category::class);
@@ -18,12 +20,12 @@ class Category extends Model
 
     public function subCategories()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function gender()
