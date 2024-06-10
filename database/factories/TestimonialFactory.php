@@ -17,7 +17,9 @@ class TestimonialFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'username' => fake()->name(),
+            'message' => fake()->text(),
+            'profile' => fake()->imageUrl()
         ];
     }
 }

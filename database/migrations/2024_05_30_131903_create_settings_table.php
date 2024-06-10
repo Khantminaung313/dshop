@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->longText('google_map')->nullable();
-            $table->string('theme_color');
+            $table->string('theme_color')->nullable();
             $table->timestamps();
         });
     }

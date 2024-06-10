@@ -26,6 +26,14 @@ class BrandSeeder extends Seeder
                 'name' => 'Puma',
                 'slug' => 'puma'
             ],
+            [
+                'name' => 'Auguest',
+                'slug' => 'auguest'
+            ],
+            [
+                'name' => 'Zara',
+                'slug' => 'zara'
+            ]
         ];
 
         Brand::insert($data);
