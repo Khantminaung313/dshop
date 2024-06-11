@@ -56,7 +56,10 @@ class BrandResource extends Resource
                     ->searchable(),
                 TextColumn::make('slug')
                     ->sortable()
-                    ->searchable()
+                    ->searchable(),
+                TextColumn::make('products_count')
+                    ->counts('products')
+                    ->label('Total Product')
             ])
             ->filters([
                 //

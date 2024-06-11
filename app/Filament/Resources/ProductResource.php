@@ -224,6 +224,10 @@ class ProductResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('brand.name')
+                    ->label('Brand')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('slug')
                     ->searchable()
                     ->visibleOn(['view', 'edit', 'create']),

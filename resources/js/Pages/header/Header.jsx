@@ -1,87 +1,52 @@
 import { Link } from "@inertiajs/react";
-import { useContext } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { ThemeContext } from "../Home";
+import { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { BsCartCheck, BsHeart } from "react-icons/bs";
+import { LuUserCircle2 } from "react-icons/lu";
 
 const Header = ({ genderList, categories }) => {
-    const { theme, setTheme } = useContext(ThemeContext);
-    let catsByGender = [];
-    const toggleTheme = () => {
-        setTheme((prev) => (prev === "light" ? "dark" : "light"));
-    };
 
-    const getCatsByGender = (genderId, categories) => {
-        return categories
-            .filter(
-                (category) =>
-                    category.parent_id === null &&
-                    (category.gender.id === 1 || category.gender.id === genderId)
-            )
-            .map((category) => (
-                <li key={category.id}>
-                    <span className="text-lg font-bold mb-4 inline-block">{category.name}</span>
-                    {category.sub_categories && category.sub_categories.length > 0 && (
-                        <ul>
-                            {category.sub_categories.map((subCategory) => (
-                                <li key={subCategory.id}>
-                                    <Link href="/">{subCategory.name}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </li>
-            ));
-    };
-    
-
-    return (
-        <div className="bg-d_white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition fixed top-0 left-0 w-full shadow shadow-d_gray dark:shadow-white">
-            <header className="d_container flex justify-between items-center">
-                <h1 className="text-2xl xl:text-3xl font-semibold lg:font-bold text-d_orange tracking-wider">
-                    Dshop
-                    <span className="text-d_gray text-xs tracking-normal">
-                        What ever you want!
-                    </span>
-                </h1>
-                <nav>
-                    <ul className="flex">
-                        {genderList.map((gender) => (
-                            <li
-                                className="group cursor-pointer py-8 px-4"
-                                key={gender.id}
-                            >
-                                <span className="group-hover:text-d_light_blue text-lg tracking-wider uppercase font-semibold">
-                                    {gender.name}
-                                </span>
-                                <div className="max-h-0 group-hover:max-h-[100vh] absolute top-full left-0 w-full bg-d_white dark:bg-d_dark_blue shadow-md border-y dark:border-y dark:border-d_gray overflow-hidden">
-                                    <ul className="w-full grid grid-cols-4 xl:grid-cols-5 space-x-6 container mx-auto py-8">
-                                        {getCatsByGender(gender.id, categories)}
-                                    </ul>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-                <button
-                    className={`border border-d_gray p-2 rounded-full ${
-                        theme === "dark" ? "bg-d_dark_blue" : "bg-d_light_blue"
-                    }`}
-                    onClick={() => toggleTheme()}
-                >
-                    <FaMoon
-                        className={`text-d_white w-5 h-5 ${
-                            theme === "dark" && "hidden"
-                        }`}
-                    />
-                    <FaSun
-                        className={`text-d_white w-5 h-5 ${
-                            theme === "light" && "hidden"
-                        }`}
-                    />
-                </button>
-            </header>
-        </div>
-    );
+    const [whitelist, setWhitelist] = useState(0);
+	const [setting, setSetting] = useState(3);
+	const [cart, setCart] = useState(1);
+	return (
+		<>
+			<div className="d_container py-5 border-b border-d_gray/20 shadow-sm">
+				<div className="flex justify-between items-center gap-4">
+					<Link href="/"><h1 className="text-2xl font-bold cursor-pointer">Dshop</h1></Link>
+					<div className="relative w-full max-w-[800px]">
+						<input
+							type="text"
+							className="w-full pl-4 pr-10 py-1 border border-d_gray rounded-md focus:border-d_gray focus:outline-none bg-d_white dark:bg-d_dark_blue dark:text-d_white d_transition"
+						/>
+						<div className="absolute right-0 top-[50%] translate-y-[-50%] px-2 sm:px-3 border-l border-d_gray/30 group cursor-pointer">
+							<AiOutlineSearch className="w-5 h-5 cursor-pointer group-hover:text-d_blue" />
+						</div>
+					</div>
+					<div className="flex gap-3">
+						<Link href="/cart" className="w-6 h-6 relative inline-block">
+							<BsCartCheck className="w-full h-full text-d_black dark:text-d_white" />
+							<span className={`text-white bg-red-500 px-1 rounded-full absolute -top-[10px] -right-1 text-xs ${cart <= 0 ? "hidden" : "inline"}`} >
+								{cart}
+							</span>
+						</Link>
+						<Link href="/whitelist" className="w-6 h-6 relative inline-block">
+							<BsHeart className="w-full h-full text-d_black dark:text-d_white" />
+							<span className={`text-white bg-red-500 px-1 rounded-full absolute -top-[10px] -right-1 text-xs ${whitelist <= 0 ? "hidden" : "inline"}`} >
+								{whitelist}
+							</span>
+						</Link>
+						<Link href="/setting" className="w-6 h-6 relative inline-block">
+							<LuUserCircle2 className="w-full h-full text-d_black dark:text-d_white" />
+							<span className={`text-white bg-red-500 px-1 rounded-full absolute -top-[10px] -right-1 text-xs ${setting <= 0 ? "hidden" : "inline"}`} >
+								{setting}
+							</span>
+						</Link>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Header;
