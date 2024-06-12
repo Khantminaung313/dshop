@@ -38,8 +38,10 @@ class SliderResource extends Resource
                 ColorPicker::make('sub_title_color'),
                 TextInput::make('intro')
                     ->nullable(),
+                ColorPicker::make('intro_color'),
                 Textarea::make('description')
                     ->nullable(),
+                ColorPicker::make('description_color'),
                 FileUpload::make('image')
                     ->disk('public')
                     ->directory('sliders')
@@ -47,7 +49,8 @@ class SliderResource extends Resource
                     ->image()
                     ->nullable(),
                 TextInput::make('link')
-                    ->nullable()
+                    ->nullable(),
+                ColorPicker::make('description_color'),
             ]);
     }
 
@@ -64,7 +67,8 @@ class SliderResource extends Resource
                     ->searchable(),
                 ColorColumn::make('sub_title_color'),
                 TextColumn::make('intro')
-                    ->limit(30)
+                    ->limit(30),
+                ColorColumn::make('intro_color'),
             ])
             ->filters([
                 //

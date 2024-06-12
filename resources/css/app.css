@@ -14,4 +14,8 @@
     .d_mini_transition{
         @apply transition-all duration-100 ease-linear;
     }
+
+    .slick-slider .slick-arrow::before{
+        display: none !important;
+    }
 }

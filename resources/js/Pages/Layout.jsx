@@ -1,12 +1,26 @@
-import React from 'react'
-import Home from './Home'
+import { createContext, useState } from "react";
+import HeaderSection from "./header/HeaderSection";
 
-const Layout = () => {
-  return (
-    <div>
-        <Home title="home" />
-    </div>
-  )
-}
+export const ThemeContext = createContext();
 
-export default Layout
+
+const Layout = ({ children}) => {
+  const [theme, setTheme] = useState("light");
+    return (
+        <ThemeContext.Provider value={{ theme, setTheme }}>
+            <div
+                className={`${
+                    theme === "dark" ? "dark" : "light"
+                } dark:bg-d_dark_blue min-h-screen d_transition relative overflow-x-hidden`}
+            >
+                <HeaderSection />
+                <div>
+                    {children}
+                </div>
+            </div>
+
+        </ThemeContext.Provider>
+    );
+};
+
+export default Layout;

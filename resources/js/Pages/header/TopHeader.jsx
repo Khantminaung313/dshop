@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { BsMoonStars, BsSun } from "react-icons/bs";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import { ThemeContext } from "../Home";
+import { ThemeContext } from "../Layout";
 
 const TopHeader = () => {
 

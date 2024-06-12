@@ -18,9 +18,12 @@ return new class extends Migration
             $table->string('sub_title')->nullable();
             $table->string('sub_title_color')->nullable();
             $table->text('intro')->nullable();
+            $table->text('intro_color')->nullable();
             $table->longText('description')->nullable();
+            $table->text('description_color')->nullable();
             $table->string('image')->nullable();
             $table->string('link')->nullable();
+            $table->string('link_color')->nullable();
             $table->timestamps();
         });
     }
