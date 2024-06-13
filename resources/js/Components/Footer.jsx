@@ -72,7 +72,7 @@ const Footer = () => {
 							placeholder="Enter your email address"
 						/>
 						<Link
-							className="px-3 h-full bg-d_gray hover:bg-d_light_blue rounded-sm absolute top-[50%] right-0 translate-y-[-50%] transition-colors duration-200 ease-linear flex items-center"
+							className="px-3 h-full bg-d_gray text-d_white hover:bg-d_light_blue rounded-sm absolute top-[50%] right-0 translate-y-[-50%] transition-colors duration-200 ease-linear flex items-center"
 							href="/"
 						>
 							<IoIosSend className="text-xl" />
@@ -80,7 +80,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-            <p className="w-full py-2 text-center border-t border-d_gray/20">All Right Reserved. Copyright &copy; D Shop.</p>
+            <p className="w-full py-2 text-center border-t border-d_gray/20 dark:text-d_white">All Right Reserved. Copyright &copy; D Shop.</p>
 		</div>
 	);
 }

@@ -9,7 +9,8 @@ class ProductDatas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'productCode', 'color', 'price', 'instock', 'discount', 'size', 'available'];
+    protected $fillable = ['product_id', 'productCode', 'color', 'price', 'instock', 'size', 'available'];
+    protected $with = ['productImages'];
 
     protected function product()
     {

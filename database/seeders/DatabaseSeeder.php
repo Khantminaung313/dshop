@@ -47,7 +47,6 @@ class DatabaseSeeder extends Seeder
             'color' => 'red',
             'price' => 123,
             'instock' => 123,
-            'discount' => '10',
             'size' => '123'
         ]);
         ProductDatas::factory()->create([
@@ -56,7 +55,6 @@ class DatabaseSeeder extends Seeder
             'color' => 'blue',
             'price' => 123,
             'instock' => 123,
-            'discount' => '10',
             'size' => '123'
         ]);
         ProductImage::factory()->create([

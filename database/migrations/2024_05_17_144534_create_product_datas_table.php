@@ -19,7 +19,6 @@ return new class extends Migration
             $table->double('price');
             $table->string('instock')->default(0);
             $table->string('available')->default(0);
-            $table->string('discount')->nullable();
             $table->string('size')->nullable();
             $table->enum('status', ['published', 'draft'])->default('draft');
             $table->timestamps();

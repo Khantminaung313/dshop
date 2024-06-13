@@ -135,6 +135,9 @@ class ProductResource extends Resource
                         TextInput::make('rating')
                             ->required()
                             ->numeric(),
+                        TextInput::make('discount')
+                            ->nullable()
+                            ->numeric(),
                         Textarea::make('intro')
                             ->required(),
                         Textarea::make('description')
@@ -170,9 +173,6 @@ class ProductResource extends Resource
                                     ->required()
                                     ->numeric(),
                                 TextInput::make('available')
-                                    ->nullable()
-                                    ->numeric(),
-                                TextInput::make('discount')
                                     ->nullable()
                                     ->numeric(),
                                 Radio::make('status')

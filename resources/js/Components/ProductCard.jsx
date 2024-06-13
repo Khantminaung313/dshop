@@ -6,9 +6,9 @@ import {
 	IoStarOutline
 } from "react-icons/io5";
 
-const ProductCard = () => {
+const ProductCard = ({product}) => {
     const renderRating = (rating) => {
-		switch (rating) {
+		switch (parseInt(rating)) {
 			case 1:
 				return (
 					<div className="flex gap-1">
@@ -107,6 +107,15 @@ const ProductCard = () => {
 				);
 
 			default:
+				return (
+					<div className="flex gap-1">
+						<IoStar />
+						<IoStar />
+						<IoStar />
+						<IoStar />
+						<IoStarHalfOutline />
+					</div>
+				);
 		}
 	};
 
@@ -115,36 +124,24 @@ const ProductCard = () => {
 			<div className="h-[300px] w-full relative overflow-hidden">
 				<img
 					className="w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-200 ease-linear"
-					// src={product.thumbnail}
-					// alt={product.name}
-                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e777c881-5b62-4250-92a6-362967f54cca/air-force-1-07-womens-shoes-b19lqD.png"
+					src={`/storage/${product.product_datas[0].product_images[0]?.path}`}
+					alt={product?.name}
 				/>
 				<span className="absolute top-3 left-1 -rotate-45 px-1 bg-orange-600 text-xs text-d_white">
-					{/* {product.discount}% */}
-                    20%
+					{product?.discount}
 				</span>
 			</div>
 			<div className="py-3 pl-2">
-				{/* <Link to={`/products/${product.name}`}>
-					<strong className="text-lg mb-2">{product.name}</strong>
-				</Link> */}
-				<Link href={`/products/`}>
-					<strong className="text-lg mb-2">Air Force</strong>
+				<Link className="inline-block mb-4" href={`/products/${product?.name}`}>
+					<strong className="text-lg">{product?.name}</strong>
 				</Link>
 
-				{/* <div className="text-d_gray mb-2">{product.intro}</div> */}
-				<div className="text-d_gray mb-2">Product Intro</div>
+				<div className="mb-2 text-ellipsis">Category: {product?.category?.name}</div>
+				<div className="mb-2 text-ellipsis">Brand: {product?.brand?.name}</div>
 
-				{/* <div className="mb-2">Color: {product.color}</div> */}
-				<div className="mb-2">Color: Black & White</div>
-
-				{/* <div className="text-orange-600 mb-4 d-flex gap-2 items-center">
-					<span className="text-d_black">Rating:</span>{" "}
-					{renderRating(product.rating)}
-				</div> */}
 				<div className="text-orange-600 mb-4 flex gap-2 items-center">
 					<span className="text-d_black dark:text-d_white">Rating:</span>{" "}
-					{renderRating(4.5)}
+					{renderRating(product?.rating)}
 				</div>
 
 				<div className="flex items-center justify-between pe-4">
@@ -153,15 +150,13 @@ const ProductCard = () => {
 						<div className="flex gap-2">
 							<div>
 								&#36;
-								{/* {Math.floor(
-									product.price -
-										product.price * (product.discount / 100)
-								)} */}
-                                234
+								{Math.floor(
+									product?.product_datas[0]?.price -
+										product?.product_datas[0]?.price * (20 / 100)
+								)}
 							</div>
 							<del className="text-red-600">
-								{/* &#36;{product.price} */}
-                                &#36; 250
+								&#36;{product?.product_datas[0]?.price}
 							</del>
 						</div>
 					</div>

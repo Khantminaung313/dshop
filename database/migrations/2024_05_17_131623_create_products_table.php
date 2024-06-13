@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('rating');
             $table->text('intro');
             $table->longText('description');
+            $table->string('discount')->nullable();
             $table->timestamps();
         });
     }

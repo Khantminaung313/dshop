@@ -3,6 +3,12 @@ import { Link } from "@inertiajs/react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 const ProductSection = ({products}) => {
+
+    const popularProducts = products
+		.filter((product) => product.rating >= 3)
+		.sort((a, b) => b.rating - a.rating);
+	const newProducts = products.sort((a, b) => b.created_at - a.created_at);
+
     return (
         <div className="py-2 lg:py-12 d_container">
                 <div className="mb-4 border-b border-d_gray/20 py-4 lg:py-8">
@@ -13,15 +19,11 @@ const ProductSection = ({products}) => {
                         </Link>
                     </h2>
                     <div className="w-full py-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3">
-                        {/* {popularProducts.map((product) => {
+                        {popularProducts.map((product) => {
                             return (
                                 <ProductCard key={product.id} product={product} />
                             );
-                        })} */}
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        })}
                     </div>
                 </div>
                 <div className="mb-4 border-b border-d_gray/20 py-4 lg:py-8">
@@ -32,15 +34,11 @@ const ProductSection = ({products}) => {
                         </Link>
                     </h2>
                     <div className="w-full py-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3">
-                        {/* {popularProducts.map((product) => {
+                        {newProducts.map((product) => {
                             return (
                                 <ProductCard key={product.id} product={product} />
                             );
-                        })} */}
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        })}
                     </div>
                 </div>
             </div>
