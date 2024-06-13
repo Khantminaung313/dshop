@@ -1,0 +1,1 @@
+import{j as o}from"./app-CmUQXjFf.js";import m from"./Hero-CBifr2l6.js";import i from"./ProductSection-DQNp1UNN.js";import{L as s}from"./Layout-CXI66VHF.js";import"./iconBase-CJbkemu5.js";import"./Header-DFWeb1MV.js";import"./Nav-DMKnAlFG.js";const u=({sliders:r,products:t})=>o.jsxs(s,{children:[o.jsx(m,{sliders:r}),o.jsx(i,{products:t})]});export{u as default};

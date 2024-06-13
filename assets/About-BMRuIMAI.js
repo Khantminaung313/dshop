@@ -1,0 +1,1 @@
+import{j as o}from"./app-CmUQXjFf.js";import{L as r}from"./Layout-CXI66VHF.js";import"./Header-DFWeb1MV.js";import"./iconBase-CJbkemu5.js";import"./Nav-DMKnAlFG.js";const p=()=>o.jsx(r,{children:o.jsx("div",{children:"Hello from About Us"})});export{p as default};
