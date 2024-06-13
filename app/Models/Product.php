@@ -10,6 +10,8 @@ class Product extends Model
     use HasFactory;
     protected $fillable = ['name', 'slug', 'category_id', 'brand_id', 'rating', 'intro', 'description', 'gender'];
 
+    protected $with = ['productDatas', 'brand', 'category'];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -18,11 +20,6 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
-    }
-
-    public function gender()
-    {
-        return $this->belongsTo(Gender::class);
     }
 
     public function productDatas()

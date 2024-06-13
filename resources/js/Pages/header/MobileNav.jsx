@@ -32,34 +32,37 @@ const MobileNav = ({ categories, genderList }) => {
                 <ul className={`absolute top-0 left-0 w-full h-full bg-white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition py-4 ${activeGender === genderId ? 'translate-x-0' : 'translate-x-full'}`}>
                     {categories
                         .filter((category) => category.parent_id === null && (category.gender.id === 1 || category.gender.id === genderId))
-                        .map((category) => (
-                            <li
+                        .map(category => 
+                            category.sub_categories &&
+                            category.sub_categories.length > 0 && (
+                                <li
                                 className="p-4 cursor-pointer text-center border-b border-dotted"
                                 key={category.id}
                             >
                                 <span className="inline-block w-full h-full hover:text-d_light_blue" onClick={() => openSubCatList(category.id)}>
                                     {category.name}
                                 </span>
-                                {getSubCategories(category.id, genderId)}
+                                {getSubCategories(category, genderId)}
                             </li>
-                        ))}
+                            )
+                    )}
                 </ul>
             </>
         );
     };
 
-    const getSubCategories = (categoryId, genderId) => {
+    const getSubCategories = (category, genderId) => {
         return (
             <>
-                <ul className={`absolute top-0 left-0 w-full h-full bg-white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition py-4 ${activeParent === categoryId ? 'translate-x-0' : 'translate-x-full'}`}>
+                <ul className={`absolute top-0 left-0 w-full h-full bg-white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition py-4 ${activeParent === category.id ? 'translate-x-0' : 'translate-x-full'}`}>
                     {
-                        categories.filter(category => category.parent_id === categoryId && category.gender_id === genderId)
-                            .map((category) => (
+                        category.sub_categories.filter(subCategories => subCategories.parent_id === category.id && (subCategories.gender_id === genderId || subCategories.gender_id === 1))
+                            .map((subCategories) => (
                                 <li
                                     className="p-4 cursor-pointer text-center border-b border-dotted"
-                                    key={category.id}
+                                    key={subCategories.id}
                                 >
-                                    <Link href="/products" className="inline-block w-full h-full hover:text-d_light_blue">{category.name}</Link>
+                                    <Link href="/products" className="inline-block w-full h-full hover:text-d_light_blue">{subCategories.name}</Link>
                                 </li>
                             ))
                     }

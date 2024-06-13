@@ -1,3 +1,4 @@
+import Footer from "@/Components/Footer";
 import { createContext, useState } from "react";
 import HeaderSection from "./header/HeaderSection";
 
@@ -17,6 +18,7 @@ const Layout = ({ children}) => {
                 <div>
                     {children}
                 </div>
+                <Footer />
             </div>
 
         </ThemeContext.Provider>

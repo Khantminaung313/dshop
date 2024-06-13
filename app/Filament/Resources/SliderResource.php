@@ -42,15 +42,15 @@ class SliderResource extends Resource
                 Textarea::make('description')
                     ->nullable(),
                 ColorPicker::make('description_color'),
+                TextInput::make('link')
+                    ->nullable(),
+                ColorPicker::make('link_color'),
                 FileUpload::make('image')
                     ->disk('public')
                     ->directory('sliders')
                     ->image()
                     ->image()
                     ->nullable(),
-                TextInput::make('link')
-                    ->nullable(),
-                ColorPicker::make('description_color'),
             ]);
     }
 

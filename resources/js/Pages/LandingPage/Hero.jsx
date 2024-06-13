@@ -5,22 +5,22 @@ import "slick-carousel/slick/slick.css";
 
 const Hero = ({ sliders }) => {
     const settings = {
-        dots: true,
-        infinite: true,
+        infinite: sliders.length > 1,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
+        arrows: false
     };
 
     return (
-        <div className="d_container my-4 lg:my-12">
+        <div className="d_container my-4 lg:my-12 font-kanit">
             <Slider {...settings}>
                 {sliders.map((slide, index) => {
                     return (
                         <div
                             key={index}
-                            className="relative h-[650px] w-full rounded-lg overflow-hidden"
+                            className="relative w-full h-[325px] lg:h-[650px] rounded-lg overflow-hidden"
                             style={{ backgroundImage: "storage" }}
                         >
                             <div className="w-full h-full">
@@ -31,8 +31,14 @@ const Hero = ({ sliders }) => {
                               />
                             </div>
                             <div className="absolute top-[50%] translate-y-[-50%] left-12">
+                                <h5
+                                    className="text-base lg:text-xl uppercase mb-4 text-d_blue"
+                                    style={{ color: slide.sub_title_color }}
+                                >
+                                    {slide.sub_title}
+                                </h5>
                                 <h2
-                                    className="text-2xl lg:text-4xl font-bold uppercase mb-4 text-d_blue"
+                                    className="text-2xl lg:text-4xl font-semibold uppercase mb-4 text-d_blue"
                                     style={{ color: slide.title_color }}
                                 >
                                     {slide.title}
