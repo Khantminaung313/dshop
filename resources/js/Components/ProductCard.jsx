@@ -127,9 +127,12 @@ const ProductCard = ({product}) => {
 					src={`/storage/${product.product_datas[0].product_images[0]?.path}`}
 					alt={product?.name}
 				/>
+				{
+				product.discount && 
 				<span className="absolute top-3 left-1 -rotate-45 px-1 bg-orange-600 text-xs text-d_white">
-					{product?.discount}
+					{product.discount}%
 				</span>
+				}
 			</div>
 			<div className="py-3 pl-2">
 				<Link className="inline-block mb-4" href={`/products/${product?.name}`}>

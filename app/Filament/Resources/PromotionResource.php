@@ -29,14 +29,13 @@ class PromotionResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title'),
-                TextInput::make('intro'),
-                Textarea::make('description'),
-                TextInput::make('percentage')->numeric(),
                 FileUpload::make('thumbnail')
                     ->disk('public')
                     ->directory('promotions')
                     ->image()
+                    ->nullable(),
+                TextInput::make('link')
+                    ->nullable()
             ]);
     }
 
@@ -46,14 +45,7 @@ class PromotionResource extends Resource
             ->columns([
                 ImageColumn::make('thumbnail')
                     ->circular(),
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('intro')
-                    ->limit(50),
-                TextColumn::make('description')
-                    ->visibleOn('view'),
-                TextColumn::make('percentage')
+                TextColumn::make('link')
             ])
             ->filters([
                 //
@@ -61,6 +53,7 @@ class PromotionResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

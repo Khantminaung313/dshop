@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Gender;
 use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\Sliders;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -14,7 +16,9 @@ class PageController extends Controller
     {
         return inertia('Home', [
             'sliders' => Sliders::all(),
-            'products' => Product::all()
+            'products' => Product::all(),
+            'testimonials' => Testimonial::all(),
+            'promotion' => Promotion::all()
         ]);
     }
 

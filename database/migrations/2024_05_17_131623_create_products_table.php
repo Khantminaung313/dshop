@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreignId('brand_id');
             $table->string('slug');
             $table->string('rating');
-            $table->text('intro');
-            $table->longText('description');
             $table->string('discount')->nullable();
             $table->timestamps();
         });

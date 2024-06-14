@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('instock')->default(0);
             $table->string('available')->default(0);
             $table->string('size')->nullable();
+            $table->text('intro');
+            $table->longText('description');
             $table->enum('status', ['published', 'draft'])->default('draft');
             $table->timestamps();
         });

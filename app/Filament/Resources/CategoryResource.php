@@ -102,9 +102,6 @@ class CategoryResource extends Resource
                     ->searchable(),
                 TextColumn::make('parent.name')
                     ->label('Parent Category')
-                    
-                    
-
             ])
             ->filters([
                 //
