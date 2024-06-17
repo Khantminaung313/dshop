@@ -22,8 +22,9 @@ class ProductFactory extends Factory
             'brand_id' => 1,
             'slug' => fake()->slug(),
             'rating' => fake()->numberBetween(1, 5),
-            'intro' => fake()->sentence(),
-            'description' => fake()->paragraph()
+            'about' => fake()->sentence(),
+            'description' => fake()->paragraph(),
+            'care_instruction' => fake()->paragraph()
         ];
     }
 }

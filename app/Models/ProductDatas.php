@@ -9,12 +9,22 @@ class ProductDatas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'productCode', 'color', 'price', 'instock', 'size', 'available'];
-    protected $with = ['productImages'];
+    protected $fillable = ['product_id', 'coupon_id', 'promotion_id', 'productCode', 'price', 'intro', 'description', 'status'];
+    // protected $with = ['productImages'];
 
     protected function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class, 'coupon_id');
+    }
+
+    public function promotion()
+    {
+        return $this->belongsTo(Promotion::class, 'promotion_id');
     }
 
     public function productImages()
@@ -25,5 +35,10 @@ class ProductDatas extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function colors()
+    {
+        return $this->hasMany(Color::class);
     }
 }

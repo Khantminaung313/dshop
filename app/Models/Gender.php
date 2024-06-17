@@ -9,23 +9,7 @@ class Gender extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
-
-    // protected $with = ['categories'];
-
-    public function categoriesByGender($genderId)
-    {
-        return Category::all('id','name')
-                ->where([
-                    ['gender_id', 1],
-                    ['parent_id', 0]
-                ])
-                ->orWhere([
-                    ['gender_id',  $genderId],
-                    ['parent_id', 0]
-                ])->get();
-    }
-
+    protected $fillable = ['name', 'slug', 'thumbnail', 'intro', 'description'];
 
     public function categories()
     {

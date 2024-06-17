@@ -11,8 +11,8 @@ class ProductImage extends Model
 
     protected $fillable = ['path', 'alt_text', 'product_datas_id'];
 
-    protected function productData()
+    protected function color()
     {
-        return $this->belongsTo(ProductDatas::class);
+        return $this->belongsTo(Color::class);
     }
 }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('color_id');
             $table->string('alt_text')->nullable();
-            $table->foreignId('product_datas_id');
             $table->string('path');
             $table->timestamps();
         });

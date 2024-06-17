@@ -14,10 +14,10 @@ class GenderSeeder extends Seeder
     public function run(): void
     {
         $datas = [
-            ['name' => 'All'],
-            ['name' => 'Men'],
-            ['name' => 'Women'],
-            ['name' => 'Kids'],
+            ['name' => 'All', 'slug' => 'all'],
+            ['name' => 'Men', 'slug' => 'men'],
+            ['name' => 'Women', 'slug' => 'women'],
+            ['name' => 'Kids', 'slug' => 'kids'],
         ];
         Gender::insert($datas);
     }

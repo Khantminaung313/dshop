@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class Size extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['discount_id', 'image'];
+    protected $fillable = ['name'];
 
-    public function discount()
+    public function productVariation()
     {
-        return $this->belongsTo(Discount::class);
+        return $this->hasMany(ProductVariation::class);
     }
 }
