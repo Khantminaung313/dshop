@@ -10,7 +10,7 @@ class ProductDatas extends Model
     use HasFactory;
 
     protected $fillable = ['product_id', 'coupon_id', 'promotion_id', 'productCode', 'price', 'intro', 'description', 'status'];
-    // protected $with = ['productImages'];
+    // protected $with = ['productImages'];     
 
     protected function product()
     {
@@ -32,13 +32,19 @@ class ProductDatas extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+    public function productVariation()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+     
+    public function color()
+    {
+        return $this->hasOne(Color::class);
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
-    public function colors()
-    {
-        return $this->hasMany(Color::class);
-    }
 }

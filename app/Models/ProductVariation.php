@@ -11,9 +11,9 @@ class ProductVariation extends Model
 
     protected $fillable = ['color_id', 'size_id', 'instock', 'available'];
 
-    public function color()
+    public function productDatas()
     {
-        return $this->belongsTo(Color::class);
+        return $this->belongsTo(ProductDatas::class);
     }
 
     public function sizes()

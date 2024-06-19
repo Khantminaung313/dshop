@@ -15,4 +15,9 @@ class Promotion extends Model
     {
         return $this->belongsTo(Discount::class);
     }
+
+    public function productDatas()
+    {
+        return $this->hasMany(ProductDatas::class); 
+    }
 }

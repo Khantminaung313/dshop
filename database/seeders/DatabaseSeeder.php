@@ -49,7 +49,8 @@ class DatabaseSeeder extends Seeder
         Product::factory(2)->create();
         ProductDatas::factory()->create([
             'product_id' => 1,
-            'productCode' => 12345,
+            'color_id' => 1,
+            'product_code' => 12345,
             'price' => 123,
             'intro' => 'this is intro',
             'description' => 'this is desc',
@@ -57,24 +58,23 @@ class DatabaseSeeder extends Seeder
         ]);
         ProductDatas::factory()->create([
             'product_id' => 2,
-            'productCode' => 12346,
+            'color_id' => 2,
+            'product_code' => 12346,
             'price' => 123,
             'intro' => 'this is intro',
             'description' => 'this is desc',
             'status' => 'published'
         ]);
         Color::create([
-            'product_datas_id' => 1,
             'name' => 'red',
             'code' => '#ff0000'
         ]);
         Color::create([
-            'product_datas_id' => 2,
             'name' => 'blue',
             'code' => '#005dff'
         ]);
         ProductImage::factory()->create([
-            'color_id' => 1,
+            'product_datas_id' => 1,
             'alt_text' => 'product name',
             'path' => '/assets/images/1.jpg'
         ]);
@@ -93,13 +93,13 @@ class DatabaseSeeder extends Seeder
         Promotion::create(['discount_id' => 1, 'image' => null]);
 
         ProductVariation::create([
-            'color_id' => 1,
+            'product_datas_id' => 1,
             'size_id' => 1,
             'instock' => 50,
             'available' => 45
         ]);
         ProductVariation::create([
-            'color_id' => 2,
+            'product_datas_id' => 2,
             'size_id' => 2,
             'instock' => 50,
             'available' => 45
