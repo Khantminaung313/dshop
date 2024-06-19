@@ -23,6 +23,7 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -135,13 +136,13 @@ class ProductResource extends Resource
                         TextInput::make('rating')
                             ->required()
                             ->numeric(),
-                        TextInput::make('discount')
-                            ->nullable()
-                            ->numeric(),
-                        Textarea::make('intro')
-                            ->required(),
+                        Textarea::make('about')
+                            ->nullable(),
                         Textarea::make('description')
-                            ->required()
+                            ->nullable(),
+                        Textarea::make('care_instruction')
+                            ->nullable(),
+                        
                     ]),
 
                 // Product Detail
@@ -157,24 +158,18 @@ class ProductResource extends Resource
                                 'lg' => 2
                             ])
                             ->schema([
-                                TextInput::make('productCode')
+                                TextInput::make('product_code')
                                     ->required()
                                     ->unique(ignoreRecord: true),
                                 Hidden::make('product_id')
                                     ->default(fn ($get) => $get('id')),
-                                TextInput::make('color')
-                                    ->nullable(),
-                                TextInput::make('size')
-                                    ->nullable(),
                                 TextInput::make('price')
                                     ->required()
                                     ->numeric(),
-                                TextInput::make('instock')
-                                    ->required()
-                                    ->numeric(),
-                                TextInput::make('available')
-                                    ->nullable()
-                                    ->numeric(),
+                                TextInput::make('intro')
+                                    ->required(),
+                                TextInput::make('description')
+                                    ->required(),
                                 Radio::make('status')
                                     ->options([
                                         'draft' => 'Draft',

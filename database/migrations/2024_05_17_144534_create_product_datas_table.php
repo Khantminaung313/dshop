@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('product_datas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id');
-            $table->foreignId('cupon_id')->nullable();
-            $table->foreignId('promotion_id')->nullable();
             $table->foreignId('color_id');
             $table->string('product_code')->unique();  
             $table->double('price');

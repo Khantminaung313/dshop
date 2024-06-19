@@ -17,11 +17,6 @@ class ProductDatas extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function coupon()
-    {
-        return $this->belongsTo(Coupon::class, 'coupon_id');
-    }
-
     public function promotion()
     {
         return $this->belongsTo(Promotion::class, 'promotion_id');

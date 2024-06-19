@@ -6,12 +6,15 @@ use App\Filament\Resources\BrandResource\Pages;
 use App\Filament\Resources\BrandResource\RelationManagers;
 use App\Models\Brand;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,8 +45,18 @@ class BrandResource extends Resource
                     ->label('Name'),
                 TextInput::make('slug')
                     ->required()
-                    ->unique()
-                    ->label('Slug')
+                    ->unique(ignoreRecord: true)
+                    ->label('Slug'),
+                TextInput::make('intro')
+                    ->nullable(),
+                Textarea::make('description')
+                    ->nullable(),
+                FileUpload::make('thumbnail')
+                    ->nullable()
+                    ->disk('public')
+                    ->directory('brands')
+                    ->image()
+                    ->imageEditor(),
             ]);
     }
 
@@ -59,7 +72,10 @@ class BrandResource extends Resource
                     ->searchable(),
                 TextColumn::make('products_count')
                     ->counts('products')
-                    ->label('Total Product')
+                    ->label('Total Product'),
+                ImageColumn::make('thumbnail')
+                    ->visibleOn('edit', 'view')
+                
             ])
             ->filters([
                 //
