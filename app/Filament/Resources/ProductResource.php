@@ -15,6 +15,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
@@ -161,10 +162,18 @@ class ProductResource extends Resource
                                     ->native(false),
                                 Textarea::make('about')
                                     ->nullable(),
-                                Textarea::make('description')
-                                    ->nullable(),
-                                Textarea::make('care_instruction')
-                                    ->nullable(),
+                                MarkdownEditor::make('description')
+                                    ->fileAttachmentsDisk('s3')
+                                    ->fileAttachmentsDirectory('attachments')
+                                    ->fileAttachmentsVisibility('private')
+                                    ->nullable()
+                                    ->columnSpan(2),
+                                MarkdownEditor::make('care_instruction')
+                                    ->fileAttachmentsDisk('s3')
+                                    ->fileAttachmentsDirectory('attachments')
+                                    ->fileAttachmentsVisibility('private')
+                                    ->nullable()
+                                    ->columnSpan(2),
                             ]),
                         Tab::make('Product Detail')
                                 ->icon('heroicon-o-folder')
@@ -173,11 +182,9 @@ class ProductResource extends Resource
                                     Repeater::make('Product Data')
                                         ->required()
                                         ->relationship('productDatas')
+                                        ->label('Product Detail')
                                         ->addActionLabel('Add Item')
-                                        ->columns([
-                                            'default' => 1,
-                                            'lg' => 2
-                                        ])
+                                        ->reorderableWithDragAndDrop()
                                         ->schema([
                                             TextInput::make('product_code')
                                                 ->required()
@@ -194,11 +201,76 @@ class ProductResource extends Resource
                                                 ->default(fn ($get) => $get('id')),
                                             TextInput::make('intro')
                                                 ->required(),
-                                            TextInput::make('description')
-                                                ->required(),
-                                            TextInput::make('price')
+                                                TextInput::make('price')
                                                 ->required()
                                                 ->numeric(),
+                                            MarkdownEditor::make('description')
+                                                ->required()
+                                                ->fileAttachmentsDisk('s3')
+                                                ->fileAttachmentsDirectory('attachments')
+                                                ->fileAttachmentsVisibility('private')
+                                                ->columnSpan(2),
+            
+                                            // Product Images
+                                            Tabs::make('Tabs')
+                                                ->tabs([
+                                                    Tab::make('Product Images')
+                                                    ->icon('heroicon-o-photo')
+                                                    ->iconPosition('after')
+                                                    ->schema([
+                                                        Repeater::make('Product Images')
+                                                            ->relationship('productImages')
+                                                            ->nullable()
+                                                            ->defaultItems(4)
+                                                            ->grid([
+                                                                'default' => 1,
+                                                                'sm' => 2,
+                                                                'md' => 3,
+                                                                'xl' => 4
+                                                            ])
+                                                            ->addActionLabel('Add Image')
+                                                            ->schema([
+                                                                FileUpload::make('path')
+                                                                    ->label('image')
+                                                                    ->disk('public')
+                                                                    ->directory('productImages')
+                                                                    ->imagePreviewHeight('100')
+                                                                    ->image(),
+                                                                TextInput::make('alt_text'),
+                                                                Hidden::make('product_datas_id')
+                                                                    ->default(fn ($get) => $get('id'))
+                                                            ])
+                                                    ]),
+                                                    Tab::make('Product Sizes')
+                                                    ->icon('heroicon-o-chart-bar')
+                                                    ->iconPosition('after')                                                        
+                                                    ->schema([
+                                                        Repeater::make('Product Size and quatities')
+                                                            ->relationship('productVariation')
+                                                            ->nullable()
+                                                            ->label("Product's size")
+                                                            ->addActionLabel('Add Size')
+                                                            ->grid([
+                                                                'default' => 1,
+                                                                'sm' => 2,
+                                                                'md' => 3,
+                                                                '2xl' => 3
+                                                            ])
+                                                            ->defaultItems(3)
+                                                            ->schema([
+                                                                Hidden::make('product_datas_id')
+                                                                    ->default(fn ($get) => $get('id')),
+                                                                Select::make('size_id')
+                                                                    ->relationship(name: 'size', titleAttribute: 'name'),
+                                                                TextInput::make('instock')
+                                                                    ->required()
+                                                                    ->numeric(),
+                                                                TextInput::make('available')
+                                                                    ->required()
+                                                                    ->numeric()
+                                                            ])
+                                                    ])
+                                                ])->columnSpan(2),
                                             Radio::make('status')
                                                 ->options([
                                                     'draft' => 'Draft',
@@ -207,270 +279,10 @@ class ProductResource extends Resource
                                                 ->default('draft')
                                                 ->inline()
                                                 ->inlineLabel(false),
-            
-                                            // Product Images
-                                            Tabs::make('Tabs')
-                                                    ->tabs([
-                                                        Tab::make('Product Images')
-                                                        ->icon('heroicon-o-photo')
-                                                        ->iconPosition('after')
-                                                        ->schema([
-                                                            Repeater::make('Product Images')
-                                                                ->relationship('productImages')
-                                                                ->nullable()
-                                                                ->defaultItems(4)
-                                                                ->grid(4)
-                                                                ->addActionLabel('Add Image')
-                                                                ->schema([
-                                                                    FileUpload::make('path')
-                                                                        ->label('image')
-                                                                        ->disk('public')
-                                                                        ->directory('productImages')
-                                                                        ->imagePreviewHeight('150')
-                                                                        ->image(),
-                                                                    TextInput::make('alt_text')
-                                                                        ->required(),
-                                                                    Hidden::make('product_datas_id')
-                                                                        ->default(fn ($get) => $get('id'))
-                                                                ])
-                                                        ]),
-                                                        Tab::make('Product Sizes')
-                                                        ->icon('heroicon-o-chart-bar')
-                                                        ->iconPosition('after')                                                        
-                                                        ->schema([
-                                                            Repeater::make('Product Size and quatities')
-                                                                ->relationship('productVariation')
-                                                                ->nullable()
-                                                                ->label("Product's size")
-                                                                ->addActionLabel('Add Size')
-                                                                ->grid(3)
-                                                                ->defaultItems(3)
-                                                                ->schema([
-                                                                    Hidden::make('product_datas_id')
-                                                                        ->default(fn ($get) => $get('id')),
-                                                                    Select::make('size_id')
-                                                                        ->relationship(name: 'size', titleAttribute: 'name'),
-                                                                    TextInput::make('instock')
-                                                                        ->required()
-                                                                        ->numeric(),
-                                                                    TextInput::make('available')
-                                                                        ->required()
-                                                                        ->numeric()
-                                                                ])
-                                                        ])
-                                                    ])->columnSpan(2),
-                                        ])
-                            ])
-                    ])->columnSpan(2),
-                // Section::make('Products Info')
-                //     ->description('Fill all product infomation')
-                //     ->columns([
-                //         'default' => 1,
-                //         'lg' => 2
-                //     ])
-                //     ->schema([
-                //         TextInput::make('name')
-                //             ->required()
-                //             ->live()
-                //             ->debounce(500)
-                //             ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                //                 if (($get('slug') ?? '') !== Str::slug($old)) {
-                //                     return;
-                //                 }
-
-                //                 $set('slug', Str::slug($state));
-                //             }),
-                //         TextInput::make('slug')
-                //             ->required()
-                //             ->unique(ignoreRecord: true),
-                //         Select::make('category_type')
-                //             ->required()
-                //             ->label('Type')
-                //             ->relationship(name: 'category', titleAttribute: 'name')
-                //             ->options(
-                //                 fn (Get $get): Collection => Category::query()
-                //                     ->where('parent_id', null)
-                //                     ->pluck('name', 'id')
-                //             )
-                //             ->searchable()
-                //             ->preload()
-                //             ->native(false),
-                //         Select::make('category_id')
-                //             ->required()
-                //             ->relationship(name: 'category', titleAttribute: 'name')
-                //             ->options(fn (Get $get): Collection => Category::query()
-                //                 ->where('parent_id', $get('category_type'))
-                //                 ->whereNot('parent_id', null)
-                //                 ->pluck('name', 'id'))
-                //             ->searchable()
-                //             ->preload()
-                //             ->native(false)
-                //             ->createOptionForm([
-                //                 TextInput::make('name')
-                //                     ->required()
-                //                     ->live()
-                //                     ->debounce(500)
-                //                     ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                //                         if (($get('slug') ?? '') !== Str::slug($old)) {
-                //                             return;
-                //                         }
-
-                //                         $set('slug', Str::slug($state));
-                //                     }),
-                //                 TextInput::make('slug')
-                //                     ->required()
-                //                     ->unique(ignoreRecord: true),
-                //                 Select::make('parent_id')
-                //                     ->relationship(name: 'parent', titleAttribute: 'name')
-                //                     ->options(
-                //                         fn (Get $get): Collection => Category::query()
-                //                             ->where('parent_id', null)
-                //                             ->pluck('name', 'id')
-                //                     )
-                //                     ->preload()
-                //                     ->native(),
-                //                 Select::make('gender_id')
-                //                     ->relationship(name: 'gender', titleAttribute: 'name')
-                //                     ->preload()
-                //                     ->native(false)
-                //             ]),
-                //         Select::make('brand_id')
-                //             ->required()
-                //             ->relationship(name: 'brand', titleAttribute: 'name')
-                //             ->preload()
-                //             ->native(false)
-                //             ->createOptionForm([
-                //                 TextInput::make('name')
-                //                     ->required()
-                //                     ->live()
-                //                     ->debounce(500)
-                //                     ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                //                         if (($get('slug') ?? '') !== Str::slug($old)) {
-                //                             return;
-                //                         }
-                //                         $set('slug', Str::slug($state));
-                //                     }),
-                //                 TextInput::make('slug')
-                //                     ->required()
-                //                     ->unique()
-                //             ]),
-                //         TextInput::make('rating')
-                //             ->required()
-                //             ->numeric()
-                //             ->maxValue(5),
-                //         TextInput::make('discount_amount')
-                //             ->nullable()
-                //             ->required(fn (Get $get) => $get('discount_type') !== null)
-                //             ->numeric()
-                //             ->label('Discount Amount'),
-                //         Select::make('discount_type')
-                //             ->options([
-                //                 'fixed' => 'Fixed',
-                //                 'percentage' => '%'
-                //             ])
-                //             ->required(fn (Get $get) => $get('discount_amount') !== null)
-                //             ->nullable()
-                //             ->label('Discount Type')
-                //             ->native(false),
-                //         Textarea::make('about')
-                //             ->nullable(),
-                //         Textarea::make('description')
-                //             ->nullable(),
-                //         Textarea::make('care_instruction')
-                //             ->nullable(),
-                //     ]),
-
-                // // Product Detail
-                // Section::make('Product Details')
-                //     ->description('Fill all product data')
-                //     ->collapsible()
-                //     ->schema([
-                //         Repeater::make('Product Data')
-                //             ->required()
-                //             ->relationship('productDatas')
-                //             ->columns([
-                //                 'default' => 1,
-                //                 'lg' => 2
-                //             ])
-                //             ->schema([
-                //                 TextInput::make('product_code')
-                //                     ->required()
-                //                     ->unique(ignoreRecord: true),
-                //                 Select::make("color_id")
-                //                     ->relationship(name: 'color', titleAttribute: 'name')
-                //                     ->required()
-                //                     ->createOptionForm([
-                //                         TextInput::make('name')->required(),
-                //                         ColorPicker::make('code')->required()
-                //                     ]),
-                //                 Hidden::make('product_id')
-                //                     ->default(fn ($get) => $get('id')),
-                //                 TextInput::make('intro')
-                //                     ->required(),
-                //                 TextInput::make('description')
-                //                     ->required(),
-                //                 TextInput::make('price')
-                //                     ->required()
-                //                     ->numeric(),
-                //                 Radio::make('status')
-                //                     ->options([
-                //                         'draft' => 'Draft',
-                //                         'published' => 'Published',
-                //                     ])
-                //                     ->default('draft')
-                //                     ->inline()
-                //                     ->inlineLabel(false),
-
-                //                 // Product Images
-                //                 Tabs::make('Additional')
-                //                         ->tabs([
-                //                             Tab::make('Product Images')
-                //                             ->schema([
-                //                                 Grid::make([
-                //                                     'default' => 1,
-                //                                     'lg' => 2
-                //                                 ])
-                //                                     ->schema([
-                //                                         Repeater::make('Product Images')
-                //                                             ->relationship('productImages')
-                //                                             ->nullable()
-        
-                //                                             ->schema([
-                //                                                 FileUpload::make('path')
-                //                                                     ->disk('public')
-                //                                                     ->directory('productImages')
-                //                                                     ->imagePreviewHeight('150')
-                //                                                     ->image(),
-                //                                                 TextInput::make('alt_text')
-                //                                                     ->required(),
-                //                                                 Hidden::make('product_datas_id')
-                //                                                     ->default(fn ($get) => $get('id'))
-                //                                             ])
-                //                                     ])
-                //                             ]),
-                //                             Tab::make('Product Sizes')
-                //                             ->schema([
-                //                                 Repeater::make('Product Size and quatities')
-                //                                     ->relationship('productVariation')
-                //                                     ->nullable()
-                //                                     ->label("Product's size")
-                //                                     ->schema([
-                //                                         Hidden::make('product_datas_id')
-                //                                             ->default(fn ($get) => $get('id')),
-                //                                         Select::make('size_id')
-                //                                             ->relationship(name: 'size', titleAttribute: 'name'),
-                //                                         TextInput::make('instock')
-                //                                             ->required()
-                //                                             ->numeric(),
-                //                                         TextInput::make('available')
-                //                                             ->required()
-                //                                             ->numeric()
-                //                                     ])
-                //                             ])
-                //                         ])->columnSpan(2),
-                //             ])
-                //     ])
-            ]);
+                                        ])->collapsible()->cloneable(),
+                                ])
+                    ]),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
