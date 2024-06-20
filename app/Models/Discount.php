@@ -9,15 +9,10 @@ class Discount extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'amount'];
+    protected $fillable = ['name', 'amount', 'type', 'start_date', 'end_date', 'usage_limit', 'times_used'];
 
     public function coupons()
     {
         return $this->hasMany(Coupon::class);
-    }
-
-    public function promotions()
-    {
-        return $this->hasMany(Promotion::class);
     }
 }

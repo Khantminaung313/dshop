@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id');
             $table->foreignId('brand_id');
-            $table->foreignId('discount_id')->nullable();
+            $table->decimal('discount_amount')->nullable();
+            $table->enum('discount_type', ['fixed', 'percentage'])->nullable();
             $table->string('name');
             $table->string('slug')->unique();
             $table->double('rating');

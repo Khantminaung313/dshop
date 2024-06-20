@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('discount_id');
             $table->string('coupon_number')->unique();
+            $table->boolean('used')->default(false);
             $table->timestamps();
         });
     }

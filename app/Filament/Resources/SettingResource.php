@@ -48,6 +48,13 @@ class SettingResource extends Resource
                 Textarea::make('google_map')
                     ->nullable(),
                 TextInput::make('theme_color')
+                    ->nullable(),
+                FileUpload::make('event')
+                    ->image()
+                    ->nullable()
+                    ->disk('public')
+                    ->directory('events'),
+                TextInput::make('event_link')
                     ->nullable()
             ]);
     }
@@ -67,6 +74,8 @@ class SettingResource extends Resource
                 TextColumn::make('email'),
                 TextColumn::make('address')->visibleOn('view'),
                 TextColumn::make('google_map')->visibleOn('view'),
+                ImageColumn::make('event')->visibleOn('view'),
+                TextColumn::make('event_link')->visibleOn('view'),
             ])
             ->filters([
                 //
@@ -74,11 +83,10 @@ class SettingResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    
                 ]),
             ]);
     }
@@ -94,9 +102,9 @@ class SettingResource extends Resource
     {
         return [
             'index' => Pages\ListSettings::route('/'),
-            'create' => Pages\CreateSetting::route('/create'),
+            // 'create' => Pages\CreateSetting::route('/create'),
             'view' => Pages\ViewSetting::route('/{record}'),
-            'edit' => Pages\EditSetting::route('/{record}/edit'),
+            // 'edit' => Pages\EditSetting::route('/{record}/edit'),
         ];
     }
 }

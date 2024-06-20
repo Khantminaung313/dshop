@@ -83,14 +83,12 @@ class DatabaseSeeder extends Seeder
         Size::create(['name' => 'M']);
         Size::create(['name' => 'L']);
 
-        Discount::create(['amount' => '10']);
-        Discount::create(['amount' => '20']);
+        Discount::create(['amount' => '10', 'type' => 'percentage', 'start_date' => "2024-07-01", 'end_date' => "2024-7-10", 'usage_limit' => 10, 'times_used' => 0]);
+        Discount::create(['amount' => '20', 'type' => 'percentage', 'start_date' => "2024-07-01", 'end_date' => "2024-7-10", 'usage_limit' => 10, 'times_used' => 0]);
+        Discount::create(['amount' => '20', 'type' => 'percentage', 'start_date' => "2024-07-01", 'end_date' => "2024-7-10", 'usage_limit' => 10, 'times_used' => 0]);
 
         Coupon::create(['discount_id' => 1, 'coupon_number' => 'ABC123456']);
         Coupon::create(['discount_id' => 2, 'coupon_number' => 'ABC123455']);
-
-        Promotion::create(['discount_id' => 1, 'image' => null]);
-        Promotion::create(['discount_id' => 1, 'image' => null]);
 
         ProductVariation::create([
             'product_datas_id' => 1,

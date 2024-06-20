@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->longText('google_map')->nullable();
             $table->string('theme_color')->nullable();
+            $table->string('event')->nullable();
+            $table->string('event_link')->nullable();
             $table->timestamps();
         });
     }

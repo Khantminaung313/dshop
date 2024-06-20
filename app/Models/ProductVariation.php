@@ -16,7 +16,7 @@ class ProductVariation extends Model
         return $this->belongsTo(ProductDatas::class);
     }
 
-    public function sizes()
+    public function size()
     {
         return $this->belongsTo(Size::class);
     }

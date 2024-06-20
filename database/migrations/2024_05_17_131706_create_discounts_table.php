@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->double('amount')->nullable();
+            $table->decimal('amount', 10, 2)->require();
+            $table->enum('type', ['fixed', 'percentage'])->default('percentage');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('usage_limit')->nullable();
+            $table->integer('times_used')->default(0);
             $table->timestamps();
         });
     }
