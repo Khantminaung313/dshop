@@ -9,9 +9,9 @@ class Product extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name', 'slug', 'category_id', 'brand_id', 'rating', 'intro', 'description', 'about', 'care_instruction'];
+    protected $fillable = ['name', 'slug', 'category_id', 'brand_id', 'discount', 'rating', 'intro', 'description', 'about', 'care_instruction'];
 
-    // protected $with = ['productDatas', 'brand', 'category'];
+    protected $with = ['productDatas', 'brand', 'category'];
 
     public function category()
     {
@@ -26,10 +26,5 @@ class Product extends Model
     public function productDatas()
     {
         return $this->hasMany(ProductDatas::class);
-    }
-
-    public function productVariation()
-    {
-        return $this->hasMany(ProductVariation::class);
     }
 }

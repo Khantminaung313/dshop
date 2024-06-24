@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = ['name', 'parent_id', 'gender_id', 'slug', 'thumbnail', 'intro', 'description'];
 
-    // protected $with = ['gender', 'subCategories'];
+    protected $with = ['gender', 'subCategories'];
 
     public function products()
     {

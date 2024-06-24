@@ -14,13 +14,13 @@ const Hero = ({ sliders }) => {
     };
 
     return (
-        <div className="d_container my-4 lg:my-12 font-kanit">
+        <div className="d_container font-kanit mt-4 overflow-hidden">
             <Slider {...settings}>
                 {sliders.map((slide, index) => {
                     return (
                         <div
                             key={index}
-                            className="relative w-full h-[325px] lg:h-[650px] rounded-lg overflow-hidden"
+                            className="relative w-full lg:h-[700px] h-[50%] rounded-lg overflow-hidden"
                             style={{ backgroundImage: "storage" }}
                         >
                             <div className="w-full h-full">

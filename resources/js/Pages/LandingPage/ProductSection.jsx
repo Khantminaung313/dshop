@@ -6,8 +6,8 @@ const ProductSection = ({products}) => {
 
     const popularProducts = products
 		.filter((product) => product.rating >= 3)
-		.sort((a, b) => b.rating - a.rating);
-	const newProducts = products.sort((a, b) => b.created_at - a.created_at);
+		.sort((a, b) => b.rating - a.rating).slice(0,4);
+	const newProducts = products.sort((a, b) => b.created_at - a.created_at).slice(0,4);
 
     return (
         <div className="py-2 lg:py-12 d_container">

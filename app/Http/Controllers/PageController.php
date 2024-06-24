@@ -18,7 +18,6 @@ class PageController extends Controller
             'sliders' => Sliders::all(),
             'products' => Product::all(),
             'testimonials' => Testimonial::all(),
-            'promotion' => Promotion::all()
         ]);
     }
 

@@ -146,20 +146,9 @@ class ProductResource extends Resource
                                     ->required()
                                     ->numeric()
                                     ->maxValue(5),
-                                TextInput::make('discount_amount')
+                                TextInput::make('discount')
                                     ->nullable()
-                                    ->required(fn (Get $get) => $get('discount_type') !== null)
-                                    ->numeric()
-                                    ->label('Discount Amount'),
-                                Select::make('discount_type')
-                                    ->options([
-                                        'fixed' => 'Fixed',
-                                        'percentage' => '%'
-                                    ])
-                                    ->required(fn (Get $get) => $get('discount_amount') !== null)
-                                    ->nullable()
-                                    ->label('Discount Type')
-                                    ->native(false),
+                                    ->numeric(),
                                 Textarea::make('about')
                                     ->nullable(),
                                 MarkdownEditor::make('description')

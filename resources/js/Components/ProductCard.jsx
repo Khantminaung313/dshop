@@ -129,7 +129,7 @@ const ProductCard = ({product}) => {
 				/>
 				{
 				product.discount && 
-				<span className="absolute top-3 left-1 -rotate-45 px-1 bg-orange-600 text-xs text-d_white">
+				<span className="absolute top-3 -left-6 -rotate-45 w-[100px] py-1 text-center bg-orange-600 text-xs text-d_white">
 					{product.discount}%
 				</span>
 				}

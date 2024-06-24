@@ -1,17 +1,17 @@
 import { Link, usePage } from "@inertiajs/react";
 
-const Nav = ({ categories, genderList }) => {
+const Nav = () => {
 
     const {url} = usePage();
+    const {genderList, categories} = usePage().props;
 
     const getCatsByGender = (genderId) => {
-
         return categories
             .filter(
                 (category) =>
                     category.parent_id === null &&
-                    (category.gender.id === 1 ||
-                        category.gender.id === genderId)
+                    (category.gender_id === 1 ||
+                        category.gender_id === genderId)
             )
             .map(
                 (category) =>
@@ -25,8 +25,8 @@ const Nav = ({ categories, genderList }) => {
                                 {category.sub_categories
                                     .filter(
                                         (subCategory) =>
-                                            subCategory.gender.id === 1 ||
-                                            subCategory.gender.id === genderId
+                                            subCategory.gender_id === 1 ||
+                                            subCategory.gender_id === genderId
                                     )
                                     .map((subCategory) => (
                                         <li

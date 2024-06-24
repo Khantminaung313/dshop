@@ -5,12 +5,12 @@ import ProductSection from "./LandingPage/ProductSection";
 import Testimonial from "./LandingPage/Testimonial";
 import Layout from "./Layout";
 
-const Home = ({sliders, products, testimonials, promotion}) => {
+const Home = ({sliders, products, testimonials}) => {
     return (
             <Layout>
                     <Hero sliders={sliders} />
                     <ProductSection products={products}/>
-                    <Testimonial testimonials={testimonials} promotion={promotion}/>
+                    <Testimonial testimonials={testimonials}/>
                     <About />
             </Layout>
     );

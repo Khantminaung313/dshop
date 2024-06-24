@@ -14,12 +14,13 @@ import {
 import { ThemeContext } from "../Layout";
 
 
-const MobileNav = ({ categories, genderList }) => {
+const MobileNav = () => {
     const [openNav, setOpenNav] = useState(false);
     const [activeGender, setActiveGender] = useState(null);
     const [activeParent, setActiveParent] = useState(null);
     const { theme, setTheme } = useContext(ThemeContext);
     const {url, component} = usePage();
+    const {genderList, categories} = usePage().props;
 
 
     const toggleTheme = () => {

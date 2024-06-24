@@ -1,9 +1,8 @@
-import { Link } from "@inertiajs/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-const Testimonial = ({testimonials, promotion}) => {
+const Testimonial = ({testimonials}) => {
   const settings = {
 		infinite: testimonials?.length > 1,
 		speed: 500,
@@ -33,13 +32,13 @@ const Testimonial = ({testimonials, promotion}) => {
                         </Slider>
                     </div>
                 }
-                <div className="col-span-2 relative overflow-hidden min-h-[280px] max-h-[380px] mb-8">
+                {/* <div className="col-span-2 relative overflow-hidden min-h-[280px] max-h-[380px] mb-8">
                     <div className="w-full h-full">
                         <Link href={null}>
                             <img className="w-full h-full object-cover object-center rounded-md" src={`/storage/${promotion[0].thumbnail}`} alt="happy-new-year" />
                         </Link>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </>

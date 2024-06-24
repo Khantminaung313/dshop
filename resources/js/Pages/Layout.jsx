@@ -12,9 +12,11 @@ const Layout = ({ children}) => {
             <div
                 className={`${
                     theme === "dark" ? "dark" : "light"
-                } dark:bg-d_dark_blue min-h-screen d_transition relative overflow-x-hidden`}
+                } dark:bg-d_dark_blue min-h-screen d_transition relative`}
             >
-                <HeaderSection />
+                <div className="header-section sticky top-0 left-0 z-40">
+                    <HeaderSection />
+                </div>
                 <div>
                     {children}
                 </div>
