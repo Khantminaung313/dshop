@@ -8,7 +8,7 @@ const About = () => {
                     <h6 className="text-xl lg:text-2xl font-bold mb-2">
                         Our Story
 						</h6>
-						<p className="dark:text-d_light_gray text-justify leading-[1.6rem] tracking-wider">
+						<p className="dark:text-d_light_gray text-justify text-sm lg:text-base leading-[1.6rem] tracking-wide">
 							Lorem ipsum dolor sit amet consectetur adipisicing
 							elit. Dolor dolore eligendi aut fugit dolorem
 							officia laboriosam perferendis sit eaque
@@ -31,7 +31,7 @@ const About = () => {
 						<h6 className="text-xl lg:text-2xl font-bold mb-2">
                         Why should you choose us!
 						</h6>
-						<p className="dark:text-d_light_gray text-justify leading-[1.6rem] tracking-wider">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						<p className="dark:text-d_light_gray text-justify text-sm lg:text-base leading-[1.6rem] tracking-wide">Lorem ipsum dolor sit amet consectetur adipisicing elit.
 						Dolor dolore eligendi aut fugit dolorem officia
 						laboriosam perferendis sit eaque reprehenderit libero
 						asperiores esse, in ea soluta sint similique voluptates

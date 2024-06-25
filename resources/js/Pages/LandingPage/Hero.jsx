@@ -30,24 +30,25 @@ const Hero = ({ sliders }) => {
                                   alt={slide.title}
                               />
                             </div>
-                            <div className="absolute top-[50%] translate-y-[-50%] left-12">
-                                <h5
-                                    className="text-base lg:text-xl uppercase mb-4 text-d_blue"
+                            <div className="absolute top-[50%] translate-y-[-50%] left-4 sm:left-8 lg:left-12">
+                                <span
+                                    className="text-[8px] uppercase mb-2 lg:mb-4 text-d_blue"
                                     style={{ color: slide.sub_title_color }}
                                 >
                                     {slide.sub_title}
-                                </h5>
+                                </span>
                                 <h2
-                                    className="text-2xl lg:text-4xl font-semibold uppercase mb-4 text-d_blue"
+                                    className="text-base sm:text-2xl lg:text-4xl font-semibold uppercase mb-2 lg:mb-4 text-d_blue"
                                     style={{ color: slide.title_color }}
                                 >
                                     {slide.title}
                                 </h2>
-                                <p className="text-sm lg:text-base max-w-[60vw] sm:max-w-[450px] mb-4" style={{ color: slide.intro_color }}>
-                                    {slide.intro}
+                                <p className="text-[10px] md:text-sm lg:text-base max-w-[50vw] sm:max-w-[450px] mb-2 lg:mb-4" style={{ color: slide.intro_color }}>
+                                    {/* {slide.intro} */}
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas itaque aperiam dignissimos perferendis non natus
                                 </p>
                                 <Link
-                                    className="text-d_white hover:underline"
+                                    className="text-[10px] md:text-sm lg:text-base text-d_white hover:underline"
                                     href={slide.link}
                                     style={{ color: slide.link_color }}
                                 >

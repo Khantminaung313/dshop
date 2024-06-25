@@ -27,27 +27,30 @@ const MobileNav = () => {
         setTheme((prev) => (prev === "light" ? "dark" : "light"));
     };
 
-    const categoryByGender = (genderId) => {
+    const categoryByGender = (genderId, gender) => {
         return (
             <>
-                <ul className={`absolute top-0 left-0 w-full h-full bg-white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition py-4 ${activeGender === genderId ? 'translate-x-0' : 'translate-x-full'}`}>
-                    {categories
-                        .filter((category) => category.parent_id === null && (category.gender.id === 1 || category.gender.id === genderId))
-                        .map(category => 
-                            category.sub_categories &&
-                            category.sub_categories.length > 0 && (
-                                <li
-                                className="p-4 cursor-pointer text-center border-b border-dotted"
-                                key={category.id}
-                            >
-                                <span className="inline-block w-full h-full hover:text-d_light_blue" onClick={() => openSubCatList(category.id)}>
-                                    {category.name}
-                                </span>
-                                {getSubCategories(category, genderId)}
-                            </li>
-                            )
-                    )}
-                </ul>
+                <div className={`absolute top-0 left-0 w-full h-full bg-white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition py-4 ${activeGender === genderId ? 'translate-x-0' : 'translate-x-full'}`}>
+                    <Link href={`/${gender.name}`} className="text-2xl block font-semibold uppercase tracking-wider p-4 border-b border-b-slate-200">{gender.name}</Link>
+                    <ul>
+                        {categories
+                            .filter((category) => category.parent_id === null && (category.gender.id === 1 || category.gender.id === genderId))
+                            .map(category => 
+                                category.sub_categories &&
+                                category.sub_categories.length > 0 && (
+                                    <li
+                                    className="p-4 cursor-pointer text-center border-b border-dotted"
+                                    key={category.id}
+                                >
+                                    <span className="inline-block w-full h-full hover:text-d_light_blue" onClick={() => openSubCatList(category.id)}>
+                                        {category.name}
+                                    </span>
+                                    {getSubCategories(category, genderId)}
+                                </li>
+                                )
+                        )}
+                    </ul>
+                </div>
             </>
         );
     };
@@ -56,6 +59,7 @@ const MobileNav = () => {
         return (
             <>
                 <ul className={`absolute top-0 left-0 w-full h-full bg-white dark:bg-d_dark_blue text-d_black dark:text-d_white d_transition py-4 ${activeParent === category.id ? 'translate-x-0' : 'translate-x-full'}`}>
+                <Link href={`/${category.name}`} className="text-2xl block font-semibold uppercase tracking-wider p-4 border-b border-b-slate-200">{category.name}</Link>
                     {
                         category.sub_categories.filter(subCategories => subCategories.parent_id === category.id && (subCategories.gender_id === genderId || subCategories.gender_id === 1))
                             .map((subCategories) => (
@@ -126,7 +130,7 @@ const MobileNav = () => {
                                         <span className="group-hover:text-d_light_blue inline-block w-full h-full p-4" onClick={() => openCatList(gender.id)}>
                                             {gender.name}
                                         </span>
-                                        {categoryByGender(gender.id)}
+                                        {categoryByGender(gender.id, gender)}
                                     </li>
                                 ))}
                             <li className="text-center border-b border-dotted group">

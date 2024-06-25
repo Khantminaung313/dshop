@@ -7,11 +7,19 @@
     body{
         @apply font-kanit;
     }
+
+    .products-box::-webkit-scrollbar{
+        width: 0px;
+    }
+
+    .products-box{
+        scrollbar-width:none;
+    }
 }
 
 @layer components{
     .d_container{
-        @apply px-4 max-[400px]:px-8 sm:px-12 md:px-20 lg:px-24 xl:px-28;
+        @apply px-4 min-[400px]:px-8 sm:px-12 md:px-20 lg:px-24 xl:px-28;
     }
 
     .d_transition{

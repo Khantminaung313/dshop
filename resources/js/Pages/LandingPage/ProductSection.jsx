@@ -18,7 +18,7 @@ const ProductSection = ({products}) => {
                             <HiOutlineArrowNarrowRight className="w-10 hover:translate-x-2 transition-transform duration-300 ease-linear font-bold" />
                         </Link>
                     </h2>
-                    <div className="w-full py-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3">
+                    <div className="w-full py-2 grid min-[280px]:grid-cols-2 min-[700px]:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4 gap-2 min-[700px]gap-3">
                         {popularProducts.map((product) => {
                             return (
                                 <ProductCard key={product.id} product={product} />
@@ -33,7 +33,7 @@ const ProductSection = ({products}) => {
                             <HiOutlineArrowNarrowRight className="w-10 hover:translate-x-2 transition-transform duration-300 ease-linear font-bold" />
                         </Link>
                     </h2>
-                    <div className="w-full py-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3">
+                    <div className="w-full py-2 grid min-[280px]:grid-cols-2 min-[700px]:grid-cols-3 md:grid-cols-3 2xl:grid-cols-4 gap-2 min-[700px]gap-3">
                         {newProducts.map((product) => {
                             return (
                                 <ProductCard key={product.id} product={product} />

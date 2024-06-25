@@ -5,7 +5,8 @@ const Nav = () => {
     const {url} = usePage();
     const {genderList, categories} = usePage().props;
 
-    const getCatsByGender = (genderId) => {
+    const getCatsByGender = (gender) => {
+        const genderId = gender.id;
         return categories
             .filter(
                 (category) =>
@@ -18,9 +19,9 @@ const Nav = () => {
                     category.sub_categories &&
                     category.sub_categories.length > 0 && (
                         <li key={category.id}>
-                            <span className="text-lg font-bold mb-4 inline-block">
+                            <Link href={`/${gender.slug}/${category.slug}`} className="text-lg font-bold mb-4 inline-block">
                                 {category.name}
-                            </span>
+                            </Link>
                             <ul>
                                 {category.sub_categories
                                     .filter(
@@ -61,7 +62,7 @@ const Nav = () => {
                 {genderList
                     .filter((gender) => gender.name !== "All")
                     .map((gender) => (
-                        <li
+                        <Link href={`/${gender.slug}`}
                             className="group cursor-pointer py-4 px-4"
                             key={gender.id}
                         >
@@ -70,10 +71,10 @@ const Nav = () => {
                             </span>
                             <div className="hidden group-hover:block absolute top-full left-0 w-full bg-d_white dark:bg-d_dark_blue shadow-md border-b dark:border-d_gray overflow-hidden px-4">
                                 <ul className="w-full grid grid-cols-4 container mx-auto py-8 gap-6">
-                                    {getCatsByGender(gender.id)}
+                                    {getCatsByGender(gender)}
                                 </ul>
                             </div>
-                        </li>
+                        </Link>
                     ))}
 
                 <li

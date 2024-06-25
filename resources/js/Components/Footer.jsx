@@ -5,25 +5,32 @@ const Footer = () => {
     return (
 		<div className="d_fluid bg-d_gray/10 pb-12 lg:pb-0 border-t border-d_gray/20">
 			<div className="d_container w-full py-8 grid grid-cols-2 lg:grid-cols-4 bg-d_white dark:bg-d_dark_blue dark:text-d_gray">
-				<div className="pl-2 lg:pl-4">
+				<div className="pl-2 lg:pl-4 col-span-2 sm:col-span-1 mb-4">
 					<h6 className="text-xl font-semibold mb-3 text-d_gray dark:text-d_white">
 						D Shop
 					</h6>
 					<ul>
 						<li className="text-sm hover:text-d_gray dark:hover:text-d_white lg:text-base mb-2">
-							<a href="tel:+09-123456789">Phone: 09-123456789</a>
-						</li>
-						<li className=" text-sm hover:text-d_gray dark:hover:text-d_white lg:text-base mb-2">
-							<a href="mailto:dshop@gmail.com">
-								Email: dshop@gmail.com
+							<a className="flex" href="tel:+09-123456789">
+								<span className="w-[100px] block">Phone</span>
+								<span className="w-full">+959 12547863</span>
 							</a>
 						</li>
 						<li className=" text-sm hover:text-d_gray dark:hover:text-d_white lg:text-base mb-2">
-							<Link to="/">Address: Yangon, Myanmar</Link>
+							<a className="flex" href="mailto:dshop.com">
+								<span className="w-[100px] block">Email</span>
+								<span className="w-full">dshop.com</span>
+							</a>
+						</li>
+						<li className=" text-sm hover:text-d_gray dark:hover:text-d_white lg:text-base mb-2">
+							<Link href="/" className="flex">
+								<span className="w-[100px] block">Address</span>
+								<span className="w-full">Yangon, Myanmar</span>
+							</Link>
 						</li>
 					</ul>
 				</div>
-				<div className="pl-2 lg:pl-4">
+				<div className="pl-2 lg:pl-4 mb-4">
 					<h6 className="text-xl font-semibold mb-3 text-d_gray dark:text-d_white">
 						Pages
 					</h6>
@@ -42,7 +49,7 @@ const Footer = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="pl-2 lg:pl-4">
+				<div className="pl-2 lg:pl-4 mb-4">
 					<h6 className="text-xl font-semibold mb-3 text-d_gray dark:text-d_white">
 						Products
 					</h6>
@@ -61,7 +68,7 @@ const Footer = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="pl-2 lg:pl-4">
+				<div className="pl-2 lg:pl-4 col-span-2 sm:col-span-1 mb-4">
 					<h6 className="text-xl font-semibold mb-3 text-d_gray dark:text-d_white">
 						Get email for new items
 					</h6>
