@@ -15,6 +15,14 @@
     .products-box{
         scrollbar-width:none;
     }
+
+    .product-data-box::-webkit-scrollbar{
+        width: 0;
+    }
+
+    .product-data-box{
+        scrollbar-width: none;
+    }
 }
 
 @layer components{
