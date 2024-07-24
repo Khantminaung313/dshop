@@ -10,6 +10,7 @@ import Layout from "./Layout";
 
 const SingleProduct = ({ product }) => {
     const firstProduct = product.product_datas[0];
+    const [selectedSize, setSelectedSize] = useState(null);
     const [productData, setProductData] = useState({
         productCode: firstProduct.productCode,
         colorName: firstProduct.color.name,
@@ -17,57 +18,39 @@ const SingleProduct = ({ product }) => {
         intro: firstProduct.intro,
         description: firstProduct.description,
         images: firstProduct.product_images,
-        variation: firstProduct.productVariation,
+        variation: firstProduct.product_variation,
     });
-    const firstProductImage = "/storage/" + productData.images[0].path;
+    const firstProductImage = productData.images[0].path;
     const [openDesc, setOpenDesc] = useState(false);
     const [showImage, setShowImage] = useState(firstProductImage);
-    console.log(product);
     const descModal = () => {
         return (
-            <div
-                className={`fixed left-0 top-0 w-[100%] h-[100vh] bg-white/50 z-50 flex justify-center items-center`}
-            >
-                <div className="w-full max-w-[1000px] max-h-[80vh] bg-white border border-slate-200 rounded-md shadow p-2 overflow-y-auto">
+            <div className={`fixed px-4 left-0 top-0 w-[100%] h-[100vh] bg-black/40 dark:bg-black/40 z-50 flex justify-center items-center`}>
+                <div className="w-full max-w-[1000px] max-h-[80vh] bg-white dark:bg-d_dark_blue dark:text-slate-200 border border-slate-200 rounded-md shadow p-2 overflow-y-auto">
                     <div className="flex justify-between">
                         <div className="flex gap-8">
                             <div className="w-[80px] h-[100px] border border-slate-200 overflow-hidden">
                                 <img
                                     className="w-full h-full object-cover object-center"
-                                    src="https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg?auto=compress&cs=tinysrgb&w=1280"
+                                    src={`/storage/` + productData.images[0].path}
                                     alt=""
                                 />
                             </div>
                             <div>
                                 <h1 className="font-bold text-2xl">
-                                    Air Force
+                                    {product.name}
                                 </h1>
-                                <p className="mb-2">Men's Air Force</p>
-                                <strong>$ 150</strong>
+                                <p className="mb-2 capitalize">{product.category.name}</p>
+                                <strong>$ - {productData.price}</strong>
                             </div>
                         </div>
                         <div>
                             <button onClick={() => setOpenDesc(false)}>
-                                <IoCloseCircleOutline className="w-10 h-10 text-gray-600" />
+                                <IoCloseCircleOutline className="w-10 h-10 text-gray-600 dark:text-slate-200"/>
                             </button>
                         </div>
                     </div>
-                    <div className="p-2 text-justify">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Quam dolorem natus odit? Consectetur beatae
-                        accusamus, quas maxime sit nobis magnam iure nemo
-                        corrupti fugiat eligendi temporibus autem at voluptatum
-                        libero ab ipsum expedita a voluptates velit deleniti hic
-                        ex. Voluptatem dolorum optio culpa et, inventore
-                        incidunt quos repellat deserunt eaque debitis autem
-                        saepe, dolorem, beatae qui modi velit assumenda suscipit
-                        nostrum? Nisi minima corporis reiciendis laboriosam
-                        officia maxime impedit accusamus accusantium veniam!
-                        Maiores aliquid molestias sit esse earum officiis vero
-                        dolores, commodi, veniam rem dolorem sint temporibus,
-                        inventore laboriosam quidem doloribus at impedit
-                        consequatur ea. Nam accusamus consequuntur ducimus eum.
-                    </div>
+                    <div className="p-2 text-justify">{product.description}</div>
                 </div>
             </div>
         );
@@ -185,31 +168,65 @@ const SingleProduct = ({ product }) => {
         }
     };
 
-    const openModal = (product) => {
+    const openModal = () => {
         setOpenDesc((prev) => true);
-        console.log(product);
     };
 
     const changeProductData = (data) => {
         setProductData({
             ...productData,
-            productCode: data.productCode,
+            productCode: data.product_code,
             colorName: data.color.name,
             price: data.price,
             intro: data.intro,
             description: data.description,
             images: data.product_images,
-            variation: data.productVariation,
+            variation: data.product_variation,
         });
+        setSelectedSize(null);
     };
 
     const changeImage = (path) => {
-        setShowImage("/storage/" + path);
+        setShowImage(path);
     };
 
     useEffect(() => {
-      setShowImage("/storage/" + productData.images[0].path)
+      setShowImage(productData.images[0].path)
     }, [productData]);
+
+    const nextImage = () => {
+        let currentImg = productData.images.filter(img => img.path === showImage);
+        if(currentImg) {
+            let currentIndex = productData.images.indexOf(currentImg[0]);            
+            if(currentIndex === productData.images.length - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            setShowImage(prev => productData.images[currentIndex].path);
+        }
+    }
+
+    const prevImage = () => {
+        let currentImg = productData.images.filter(img => img.path === showImage);
+        if(currentImg) {
+            let currentIndex = productData.images.indexOf(currentImg[0]);            
+            if(currentIndex === 0) {
+                currentIndex = productData.images.length - 1;
+            } else {
+                currentIndex--;
+            }
+            setShowImage(prev => productData.images[currentIndex].path);
+        }
+    }
+
+    const handleSizeChange = (event) => {
+        setSelectedSize(prev => event.target.value);
+    }
+
+    const addToCart = () => {
+        console.log({'productData': productData, 'size' : selectedSize});
+    }
     
 
     return (
@@ -236,7 +253,7 @@ const SingleProduct = ({ product }) => {
                         <div className="aspect-[7/9] mx-auto relative max-h-[80%]">
                             <img
                                 className="object-cover object-center w-full h-full"
-                                src={showImage}
+                                src={"/storage/" + showImage}
                                 alt=""
                             />
                             <div className="absolute bottom-4 right-4 inline-flex gap-4">
@@ -251,10 +268,10 @@ const SingleProduct = ({ product }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="px-4 lg:pe-8 lg:pl-16">
+                    <div className="px-4 lg:pe-8 lg:pl-16 dark:text-white">
                         <div className="flex justify-between items-center">
                             <div>
-                                <strong className="text-orange-600 text-xs">
+                                <strong className="text-orange-600 text-xs capitalize">
                                     {product.about}
                                 </strong>
                                 <h1 className="text-4xl font-bold capitalize">
@@ -262,48 +279,50 @@ const SingleProduct = ({ product }) => {
                                 </h1>
                             </div>
                             <button>
-                                <BsHeart className="w-10 h-10 rounded shadow active:scale-95 bg-white p-2 border" />
+                                <BsHeart className="w-8 h-8 rounded shadow active:scale-95 bg-white dark:bg-d_dark_blue p-1 border" />
                             </button>
                         </div>
-                        <p className="mb-2 text-slate-600">
+                        <p className="mb-2 text-slate-600 dark:text-slate-200">
                             Brand - {product.brand.name}{" "}
                         </p>
-                        <div className="flex gap-0 lg:gap-1 text-xs lg:text-base mt-4 mb-8">
-                            {product.rating && renderRating(product.rating)}
+                        <div className="flex lg:block justify-between py-4 lg:py-0 items-center mb-4">
+                            <div className="flex gap-1 text-sm lg:text-base lg:mt-4 lg:mb-8">
+                                {product.rating && renderRating(product.rating)}
+                            </div>
+                            {product.discount ? (
+                                <div className="mb-0 lg:mb-8 text-end">
+                                    <strong className="flex gap-2">
+                                        <del className="text-red-600">
+                                            ${productData.price}
+                                        </del>
+                                        <span className="text-green-500">
+                                            $
+                                            {Math.round(
+                                                productData.price -
+                                                    productData.price *
+                                                        (product.discount / 100)
+                                            )}
+                                        </span>
+                                    </strong>
+                                </div>
+                            ) : (
+                                <div className="mb-8">
+                                    <strong>$ {productData.price}</strong>
+                                </div>
+                            )}
                         </div>
-                        {product.discount ? (
-                            <div className="mb-8">
-                                <strong className="flex gap-2">
-                                    <del className="text-red-600">
-                                        ${productData.price}
-                                    </del>
-                                    <span className="text-green-500">
-                                        $
-                                        {Math.round(
-                                            productData.price -
-                                                productData.price *
-                                                    (product.discount / 100)
-                                        )}
-                                    </span>
-                                </strong>
-                            </div>
-                        ) : (
-                            <div className="mb-8">
-                                <strong>$ {productData.price}</strong>
-                            </div>
-                        )}
-                        <div className="aspect-[3/4] max-w-[400px] mx-auto p-2 relative block lg:hidden">
+                        <div className="aspect-[7/9] max-w-[300px] sm:max-w-[400px] mx-auto p-2 relative block lg:hidden border border-slate-300 shadow mb-8">
                             <img
                                 className="object-cover object-center w-full h-full"
-                                src="https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg?auto=compress&cs=tinysrgb&w=1280"
+                                src={`/storage/` + showImage}
                                 alt=""
                             />
                             <div className="absolute bottom-4 right-4 inline-flex gap-4">
-                                <button>
+                                <button onClick={() => prevImage()}>
                                     {" "}
                                     <BsArrowLeft className="w-8 h-8 p-2 rounded-full bg-white text-center leading-6 text-xl active:scale-95 transition-all duration-100" />{" "}
                                 </button>
-                                <button>
+                                <button onClick={() => nextImage()}>
                                     {" "}
                                     <BsArrowRight className="w-8 h-8 p-2 rounded-full bg-white text-center leading-6 text-xl active:scale-95 transition-all duration-100" />{" "}
                                 </button>
@@ -335,78 +354,38 @@ const SingleProduct = ({ product }) => {
                         <div className="mb-12">
                             <strong>Sizes</strong>
                             <div className="flex flex-wrap gap-2 lg:gap-4 my-2">
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
-                                <button className="bg-white shadow-md border border-slate-200 hover:border-slate-700 rounded basis-32 text-center flex-grow py-2 flex-shrink-0">
-                                    3.8
-                                </button>
+                                {productData.variation.map(item => (
+                                    <div key={item.id} className="flex-grow flex-shrink-0">
+                                        <input id={item.id} type="radio" name="size" value={item.size.name} onChange={handleSizeChange} className="hidden peer" />
+                                        <label htmlFor={item.id} className={`peer-checked:border block py-2 peer-checked:border-slate-500 bg-white dark:bg-d_dark_blue shadow-md border border-slate-200 rounded basis-32 text-center relative overflow-hidden ${item.instock == '0' ? 'cursor-not-allowed' : 'hover:border-slate-500'}`}>
+                                            {item.size.name}
+                                        </label>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                         <div className="flex gap-4">
-                            <button className="basis-[80px] flex-grow py-2 text-center rounded bg-black dark:bg-d_gray text-white shadow border-slate-200 hover:tracking-widest d_transition">
+                            <button onClick={() => addToCart()} className="basis-[80px] flex-grow py-2 text-center rounded bg-black dark:bg-d_gray text-white shadow border-slate-200 hover:tracking-widest d_transition">
                                 Add to cart
                             </button>
-                            <button className="basis-[80px] flex-grow py-2 text-center rounded bg-white shadow border border-slate-200 hover:tracking-widest d_transition">
+                            <button className="basis-[80px] flex-grow py-2 text-center rounded bg-white dark:bg-d_dark_blue shadow dark:shadow-d_white border border-slate-200 hover:tracking-widest d_transition">
                                 Checkout
                             </button>
                         </div>
 
                         <div className="my-8">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing
-                            elit. Sit tempora laborum porro, iure assumenda
-                            eaque amet nemo voluptates labore similique
-                            asperiores libero incidunt. Corporis ipsam at
-                            veritatis totam error cupiditate adipisci nesciunt
-                            voluptatibus,
+                            {productData.intro}
                         </div>
                         <p
                             className="font-bold cursor-pointer mb-4"
-                            onClick={() => openModal("10")}
+                            onClick={() => openModal()}
                         >
                             Learn more about this product...
                         </p>
                     </div>
                 </div>
-                <div className="my-8">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptatem alias in ipsam, ratione nobis commodi, eum unde
-                    ullam odio esse consectetur dolorem fuga aut voluptatibus
-                    corrupti tempore, corporis voluptas aliquam. Quibusdam
-                    facere porro tempore odit quod! Pariatur praesentium
-                    obcaecati a quidem doloribus magni repellendus minus rerum
-                    magnam dolores ut, sit consequatur dignissimos atque
-                    possimus dicta quaerat perspiciatis ipsum officiis? Sapiente
-                    excepturi error, tenetur quia dignissimos veniam autem
-                    delectus nesciunt molestias, dicta cum optio iure corporis
-                    iste beatae amet quis ducimus possimus necessitatibus soluta
-                    suscipit tempora non. Ea, suscipit animi eius inventore
-                    pariatur dolorem quam obcaecati assumenda ab laudantium at
-                    nisi!
+                <div className="my-8 dark:text-white px-4">
+                    {product.description}
                 </div>
             </div>
         </Layout>
